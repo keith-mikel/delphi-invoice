@@ -1,26 +1,41 @@
 const { Schema, model } = require('mongoose');
 
 const invoiceSchema = new Schema({
-    invoice: {
-        type: String,
-        required: true,
+  invoiceDate: {
+    type: Date,
+    required: true,
+  },
+  invoiceNumber: {
+    type: String,
+    required: true,
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User', // Reference to the Product model
+  },
+  customer: {
+    name: {
+      type: String,
+      required: true,
     },
-    date: {
-        type: Date,
-        required: true,
+    email: {
+      type: String,
+      required: true,
     },
-    vendor: {
-        type: String,
-        required: true,
-    },
-    product: {
-        type: String,
-        required: true,
-    },
-    total: {
+    // Other customer details
+  },
+  lineItems: [
+    {
+      product: {
+        type: Schema.Types.ObjectId,
+        ref: 'Product', // Reference to the Product model
+      },
+      quantity: {
         type: Number,
         required: true,
-    }
+      },
+    },
+  ],
 });
 
 const Invoice = model('Invoice', invoiceSchema);

@@ -1,0 +1,62 @@
+{
+  "productsData": [
+    {
+      "name": "Product A",
+      "price": 50
+    },
+    {
+      "name": "Product B",
+      "price": 30
+    },
+    {
+      "name": "Product C",
+      "price": 40
+    },
+    {
+      "name": "Product D",
+      "price": 25
+    },
+    {
+      "name": "Product E",
+      "price": 60
+    }
+  ],
+  "invoicesData": [
+    {
+      "invoiceDate": "2023-10-06",
+      "invoiceNumber": "INV-2023-001",
+      "customer": {
+        "name": "Customer 1",
+        "email": "customer1@example.com"
+      },
+      "lineItems": [
+        {
+          "product": null,
+          "quantity": 2
+        },
+        {
+          "product": null,
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "invoiceDate": "2023-10-07",
+      "invoiceNumber": "INV-2023-002",
+      "customer": {
+        "name": "Customer 2",
+        "email": "customer2@example.com"
+      },
+      "lineItems": [
+        {
+          "product": null,
+          "quantity": 1
+        },
+        {
+          "product": null,
+          "quantity": 4
+        }
+      ]
+    }
+  ]
+}
