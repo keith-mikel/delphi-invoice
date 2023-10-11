@@ -120,8 +120,7 @@ const resolvers = {
     // Mutation to create a user
     createUser: async (_, { username, email, password }) => {
       try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({ username, email, password: hashedPassword });
+        const user = await User.create({ username, email, password });
         const token = signToken(user);
         
         return { token, user };
