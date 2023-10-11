@@ -34,6 +34,11 @@ const typeDefs = gql`
     user: User!
   }
 
+  type Auth {
+    token: ID!
+    user: User
+  }
+
   # Query to fetch invoices, products, users, and current user
   type Query {
     products: [Product!]!
@@ -78,11 +83,15 @@ const typeDefs = gql`
     deleteProduct(productId: ID!): Product
 
     # Mutation to create a user
-    createUser(username: String!, email: String!, password: String!): User!
+    createUser(username: String!, email: String!, password: String!): Auth!
 
     # Mutation to delete a user by ID
     deleteUser(userId: ID!): User
+
+    login(email: String!, password: String!): Auth
   }
+
+
 
   # Input types for creating invoices, line items, and users
   input CustomerInput {
@@ -95,6 +104,10 @@ const typeDefs = gql`
     product: ID!
     quantity: Int!
   }
+
+
 `;
 
 module.exports = typeDefs;
+
+

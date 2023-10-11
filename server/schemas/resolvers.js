@@ -1,5 +1,6 @@
 const { Product, Invoice, User } = require('../models');
 const bcrypt = require('bcrypt');
+const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
@@ -121,7 +122,9 @@ const resolvers = {
       try {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await User.create({ username, email, password: hashedPassword });
-        return user;
+        const token = signToken(user);
+        
+        return { token, user };
       } catch (err) {
         throw err;
       }
@@ -138,6 +141,23 @@ const resolvers = {
       } catch (err) {
         throw err;
       }
+    },
+
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw AuthenticationError;
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw AuthenticationError;
+      }
+
+      const token = signToken(user);
+      return { token, user };
     },
   },
 };
