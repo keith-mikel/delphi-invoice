@@ -5,7 +5,7 @@ const resolvers = {
   Query: {
     invoices: async () => {
       try {
-        const invoices = await Invoice.find();
+        const invoices = await Invoice.find().populate('user');
         return invoices;
       } catch (err) {
         throw err;
@@ -14,7 +14,7 @@ const resolvers = {
 
     invoicesByProduct: async (_, { productId }) => {
       try {
-        const invoices = await Invoice.find({ 'lineItems.product': productId });
+        const invoices = await Invoice.find({ 'lineItems.product': productId }).populate('user');
         return invoices;
       } catch (err) {
         throw err;
@@ -23,7 +23,7 @@ const resolvers = {
 
     invoicesByCustomer: async (_, { customerName }) => {
       try {
-        const invoices = await Invoice.find({ 'customer.name': customerName });
+        const invoices = await Invoice.find({ 'customer.name': customerName }).populate('user');
         return invoices;
       } catch (err) {
         throw err;
@@ -34,7 +34,7 @@ const resolvers = {
       try {
         const invoices = await Invoice.find({
           invoiceDate: { $gte: startDate, $lte: endDate },
-        });
+        }).populate('user');
         return invoices;
       } catch (err) {
         throw err;
