@@ -20,7 +20,7 @@ const typeDefs = gql`
 
   type User {
     _id: ID!
-    username: String!
+    username: String
     email: String!
     # Add other user fields here if needed
   }
@@ -38,7 +38,7 @@ const typeDefs = gql`
   type Query {
     products: [Product!]!
     invoices: [Invoice!]!
-    users: [User!]!
+    users: [User]
     
     # Query to search invoices by product
     invoicesByProduct(productId: ID!): [Invoice!]!
