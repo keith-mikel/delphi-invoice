@@ -6,7 +6,10 @@ const resolvers = {
   Query: {
     invoices: async () => {
       try {
-        const invoices = await Invoice.find().populate('user');
+        const invoices = await Invoice.find().populate('user').populate({
+          path: 'lineItems.product',
+          model: 'Product', // Replace 'Product' with the actual model name for your products
+        })
         return invoices;
       } catch (err) {
         throw err;

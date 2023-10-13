@@ -1,11 +1,13 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom/dist'
-import App from './App.jsx'
 import './index.css'
 
-import Login from './pages/Login';
+import App from './App.jsx'
+import Home from './pages/home'
 import Error from './pages/Error';
+import Login from './pages/Login';
+import Profile from './pages/Profile'
+import SignupPage from './pages/Signup'
 
 const router = createBrowserRouter([
   {
@@ -16,12 +18,21 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />
-      }, {
+      },
+      {
+        path: '/profile',
+        element: <Profile />
+      },
+      {
         path: '/login',
         element: <Login />
       },
+      {
+      path: '/signup',
+      element: <SignupPage />
+      } 
     ]
-  }
+    }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

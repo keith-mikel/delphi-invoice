@@ -1,94 +1,65 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { LOGIN } from '../utils/mutations';
+import { LOGIN } from '../utils/mutations'; // Import your LOGIN mutation
 
-import Auth from '../utils/auth';
+import Auth from '../utils/auth'
 
-const Login = (props) => {
-  const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login, { error, data }] = useMutation(LOGIN);
+function LoginForm() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [token, setToken] = useState(''); // State variable to store the token
 
-  // update state based on form input changes
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const [loginMutation] = useMutation(LOGIN);
 
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
-  };
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-  // submit form
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    console.log(formState);
     try {
-      const { data } = await login({
-        variables: { ...formState },
+      const { data } = await loginMutation({
+        variables: { email, password },
       });
 
-      Auth.login(data.login.token);
-    } catch (e) {
-      console.error(e);
-    }
+      // Extract the token from the login response data
+      const userToken = data.login.token;
 
-    // clear form values
-    setFormState({
-      email: '',
-      password: '',
-    });
+      // Update the state with the token
+      setToken(userToken);
+      Auth.login(userToken)
+
+      // Handle the login response data here, e.g., store token, navigate to the next page, etc.
+      console.log('Login response:', data);
+    } catch (error) {
+      // Handle login error here
+      console.error('Login error:', error);
+    }
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-lg-10">
-        <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Login</h4>
-          <div className="card-body">
-            {data ? (
-              <p>
-                Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
-              </p>
-            ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  className="form-input"
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  className="btn btn-block btn-info"
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </form>
-            )}
-
-            {error && (
-              <div className="my-3 p-3 bg-danger text-white">
-                {error.message}
-              </div>
-            )}
-          </div>
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleLogin}>
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
-      </div>
-    </main>
-  );
-};
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit">Login</button>
+      </form>
 
-export default Login;
+      {/* Display the token if it exists */}
+    </div>
+  );
+}
+
+export default LoginForm;
