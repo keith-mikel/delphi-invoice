@@ -8,6 +8,7 @@ import Error from './pages/Error';
 import Login from './pages/Login';
 import Profile from './pages/Profile'
 import SignupPage from './pages/Signup'
+import Invoice from './pages/Invoice'
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,11 @@ const router = createBrowserRouter([
       {
       path: '/signup',
       element: <SignupPage />
-      } 
+      },
+      {
+        path: '/invoice',
+        element: <Invoice />
+      }
     ]
     }
 ])

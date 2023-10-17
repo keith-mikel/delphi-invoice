@@ -25,6 +25,7 @@ query Invoices {
 }
 `;
 
+
 export const GET_INVOICES_BY_PRODUCT = gql`
   query getInvoicesByProduct($productId: ID!) {
     invoicesByProduct(productId: $productId) {
@@ -53,6 +54,8 @@ export const GET_PRODUCTS = gql`
   query getProducts {
     products {
       _id
+      name
+      price
     }
   }
 `;

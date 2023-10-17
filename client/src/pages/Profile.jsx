@@ -1,20 +1,39 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
+import { Link } from 'react-router-dom';
 import { GET_INVOICES } from '../utils/queries'; // Import your GET_INVOICES query
+import { DELETE_INVOICE} from '../utils/mutations'; // Import your DELETE_INVOICE_MUTATION
 import AuthService from '../utils/auth'; // Import your AuthService
 
-function Profile() {
-  // Check if the user is authenticated
+const DeleteInvoiceButton = ({ invoiceId }) => {
+  const [deleteInvoice] = useMutation(DELETE_INVOICE, {
+    refetchQueries: [{ query: GET_INVOICES }], // Optionally refetch data after deletion
+  });
+
+  const handleDelete = async () => {
+    try {
+      await deleteInvoice({
+        variables: {
+          invoiceId: invoiceId,
+        },
+      });
+    } catch (error) {
+      console.error('Error deleting invoice:', error);
+    }
+  };
+
+  return <button onClick={handleDelete}>Delete</button>;
+};
+
+const Profile = () => {
   if (!AuthService.loggedIn()) {
     return (
       <div>
         <p>You need to be logged in to access this page.</p>
-        {/* You can add a login button or a link to the login page here */}
       </div>
     );
   }
 
-  // If the user is authenticated, execute the GET_INVOICES query
   const { loading, error, data } = useQuery(GET_INVOICES);
 
   if (loading) {
@@ -30,6 +49,9 @@ function Profile() {
   return (
     <div>
       <h1>Invoices</h1>
+      <Link to="/invoice">
+        <button>Create New Invoice</button>
+      </Link>
       <ul>
         {invoices.map((invoice) => (
           <li key={invoice._id}>
@@ -46,11 +68,12 @@ function Profile() {
                 </li>
               ))}
             </ul>
+            <DeleteInvoiceButton invoiceId={invoice._id} />
           </li>
         ))}
       </ul>
     </div>
   );
-}
+};
 
 export default Profile;
