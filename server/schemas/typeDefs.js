@@ -3,8 +3,8 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
   type Product {
     _id: ID!
-    name: String!
-    price: Float!
+    name: String
+    price: Float
   }
 
   type Customer {
@@ -19,19 +19,19 @@ const typeDefs = gql`
   }
 
   type User {
-    _id: ID!
+    _id: ID
     username: String
-    email: String!
+    email: String
     # Add other user fields here if needed
   }
 
   type Invoice {
     _id: ID!
-    invoiceDate: String!
-    invoiceNumber: String!
-    customer: Customer!
-    lineItems: [LineItem!]!
-    user: User!
+    invoiceDate: String
+    invoiceNumber: String
+    customer: Customer
+    lineItems: [LineItem!]
+    user: User
   }
 
   type Auth {
@@ -66,18 +66,20 @@ const typeDefs = gql`
   # Mutation to create invoices, products, users, and delete invoices, products, and users
   type Mutation {
     createInvoice(
-      invoiceDate: String!
-      invoiceNumber: String!
-      customer: CustomerInput!
-      lineItems: [LineItemInput!]!
+      invoiceDate: String
+      invoiceNumber: String
+      customer: CustomerInput
+      lineItems: [LineItemInput!]
       user: ID!
     ): Invoice!
 
     deleteInvoice(invoiceId: ID!): Invoice
 
+    updateUsername(id: ID, updatedUsername: String): User!
+
     createProduct(
-      name: String!
-      price: Float!
+      name: String
+      price: Float
     ): Product!
 
     deleteProduct(productId: ID!): Product
@@ -95,14 +97,14 @@ const typeDefs = gql`
 
   # Input types for creating invoices, line items, and users
   input CustomerInput {
-    name: String!
-    email: String!
+    name: String
+    email: String
     # Add other customer fields here if needed
   }
 
   input LineItemInput {
-    product: ID!
-    quantity: Int!
+    product: ID
+    quantity: Int
   }
 
 

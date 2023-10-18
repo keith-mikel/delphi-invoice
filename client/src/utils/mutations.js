@@ -49,17 +49,15 @@ export const DELETE_INVOICE = gql`
   mutation deleteInvoice($invoiceId: ID!) {
     deleteInvoice(invoiceId: $invoiceId) {
       _id
-      invoiceDate
-      invoiceNumber
-      customer {
-        name
-        email
-      }
-      user
-      lineItems {
-        product
-        quantity
-      }
+    }
+  }
+`;
+
+export const UPDATE_USER_USERNAME = gql`
+  mutation UpdateUsername($id: ID!, $updatedUsername: String!) {
+    updateUsername(id: $id, updatedUsername: $updatedUsername) {
+      id
+      username
     }
   }
 `;

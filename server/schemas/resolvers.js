@@ -161,7 +161,19 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-  },
+
+    updateUsername: async (parent, { id, updatedUsername }, context, info) => {
+      try {
+        const updatedUser = await User.findByIdAndUpdate(id, { username: updatedUsername }, { new: true });
+        if (!updatedUser) {
+          throw new Error('User not found');
+        }
+        return updatedUser;
+      } catch (error) {
+        throw new Error(`Failed to update username: ${error.message}`);
+      }
+    },
+  }
 };
 
 module.exports = resolvers;

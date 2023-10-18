@@ -16,11 +16,9 @@ const invoiceSchema = new Schema({
   customer: {
     name: {
       type: String,
-      required: true,
     },
     email: {
       type: String,
-      required: true,
     },
     // Other customer details
   },

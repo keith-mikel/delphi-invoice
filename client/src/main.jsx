@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile'
 import SignupPage from './pages/Signup'
 import Invoice from './pages/Invoice'
+import Update from './pages/Update'
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: '/invoice',
         element: <Invoice />
+      },
+      {
+        path: '/update',
+        element: <Update />
       }
     ]
     }

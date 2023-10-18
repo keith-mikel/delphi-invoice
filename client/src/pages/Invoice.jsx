@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_PRODUCTS } from '../utils/queries'; // Replace 'path-to-your-file' with the actual file path
 import { CREATE_INVOICE } from '../utils/mutations'; // Replace 'path-to-your-mutation' with the actual file path
+import auth from '../utils/auth';
 
 const CreateInvoiceForm = () => {
   const [invoiceDate, setInvoiceDate] = useState('');
@@ -27,15 +28,17 @@ const CreateInvoiceForm = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      
       const { data } = await createInvoice({
         variables: {
           invoiceDate,
           invoiceNumber,
           customer: { name: customerName, email: customerEmail },
-          user: "6520431fc7a705d5cf3f26ef", // Replace with the actual user ID (maybe from local storage)
+          user: auth.getUser().data._id, // Replace with the actual user ID (maybe from local storage)
           lineItems: lineItems,
         },
       });
+      console.log(data)
       console.log('Invoice created:', data.createInvoice);
       // Reset the form fields on successful submission
       setInvoiceDate('');
@@ -97,6 +100,7 @@ const CreateInvoiceForm = () => {
   {lineItems.length > 0 ? (
     <ul>
       {lineItems.map((item, index) => {
+        
         const product = data.products.find((product) => product._id === item.product);
         const productName = product ? product.name : "Product name not available";
         const productPrice = product ? product.price : "Product name not available";
