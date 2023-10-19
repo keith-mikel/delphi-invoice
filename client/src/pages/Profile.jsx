@@ -1,13 +1,13 @@
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
-import { GET_INVOICES } from '../utils/queries'; // Import your GET_INVOICES query
-import { DELETE_INVOICE} from '../utils/mutations'; // Import your DELETE_INVOICE_MUTATION
-import AuthService from '../utils/auth'; // Import your AuthService
+import { GET_INVOICES } from '../utils/queries';
+import { DELETE_INVOICE } from '../utils/mutations';
+import AuthService from '../utils/auth';
 
 const DeleteInvoiceButton = ({ invoiceId }) => {
   const [deleteInvoice] = useMutation(DELETE_INVOICE, {
-    refetchQueries: [{ query: GET_INVOICES }], // Optionally refetch data after deletion
+    refetchQueries: [{ query: GET_INVOICES }],
   });
 
   const handleDelete = async () => {
@@ -22,13 +22,17 @@ const DeleteInvoiceButton = ({ invoiceId }) => {
     }
   };
 
-  return <button onClick={handleDelete}>Delete</button>;
+  return (
+    <button className="button is-danger" onClick={handleDelete}>
+      Delete
+    </button>
+  );
 };
 
 const Profile = () => {
   if (!AuthService.loggedIn()) {
     return (
-      <div>
+      <div className="container">
         <p>You need to be logged in to access this page.</p>
       </div>
     );
@@ -47,24 +51,24 @@ const Profile = () => {
   const invoices = data.invoices;
 
   return (
-    <div>
-      <h1>Invoices</h1>
+    <div className="container">
+      <h1 className="title is-1">Invoices</h1>
       <Link to="/invoice">
-        <button>Create New Invoice</button>
+        <button className="button is-primary">Create New Invoice</button>
       </Link>
       <Link to="/update">
-        <button>Update Product Price</button>
+        <button className="button is-info">Update Product Price</button>
       </Link>
       <ul>
         {invoices.map((invoice) => (
-          <li key={invoice._id}>
+          <li key={invoice._id} className="box">
             <p>Invoice Number: {invoice.invoiceNumber}</p>
             <p>Customer Name: {invoice.customer.name}</p>
             <p>Invoice Date: {invoice.invoiceDate}</p>
             <p>User: {invoice.user.username}</p>
             <ul>
               {invoice.lineItems.map((lineItem, index) => (
-                <li key={index}>
+                <li key={index} className="notification">
                   <p>Product Name: {lineItem.product.name}</p>
                   <p>Product Price: {lineItem.product.price}</p>
                   <p>Quantity: {lineItem.quantity}</p>

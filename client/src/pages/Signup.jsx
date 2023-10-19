@@ -4,7 +4,7 @@ import { CREATE_USER } from '../utils/mutations'; // Import your CREATE_USER mut
 
 import Auth from '../utils/auth';
 
-function SignupPage() {
+const SignupPage = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -43,41 +43,55 @@ function SignupPage() {
   };
 
   return (
-    <div>
-      <h1>Signup</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
-          />
+    <div className="container">
+      <h1 className="title is-2 has-text-centered">Signup</h1>
+      <form onSubmit={handleSubmit} className="box">
+        <div className="field">
+          <label className="label">Username:</label>
+          <div className="control">
+            <input
+              className="input"
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleInputChange}
+            />
+          </div>
         </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-          />
+        <div className="field">
+          <label className="label">Email:</label>
+          <div className="control">
+            <input
+              className="input"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+          </div>
         </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-          />
+        <div className="field">
+          <label className="label">Password:</label>
+          <div className="control">
+            <input
+              className="input"
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+            />
+          </div>
         </div>
-        <button type="submit">Sign Up</button>
+        <div className="field is-grouped">
+          <div className="control">
+            <button className="button is-link" type="submit">
+              Sign Up
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   );
-}
+};
 
 export default SignupPage;
-
