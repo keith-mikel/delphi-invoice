@@ -39,6 +39,11 @@ const typeDefs = gql`
     user: User
   }
 
+  type UpdateProductPriceResponse {
+    name: String
+    price: Float
+  }
+
   # Query to fetch invoices, products, users, and current user
   type Query {
     products: [Product!]!
@@ -81,6 +86,8 @@ const typeDefs = gql`
       name: String
       price: Float
     ): Product!
+
+    updateProductPrice(id: ID!, newPrice: Float!): UpdateProductPriceResponse
 
     deleteProduct(productId: ID!): Product
 

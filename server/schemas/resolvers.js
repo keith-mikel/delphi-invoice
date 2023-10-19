@@ -162,17 +162,20 @@ const resolvers = {
       return { token, user };
     },
 
-    updateUsername: async (parent, { id, updatedUsername }, context, info) => {
+     updateProductPrice: async (parent, { id, newPrice }) => {
       try {
-        const updatedUser = await User.findByIdAndUpdate(id, { username: updatedUsername }, { new: true });
-        if (!updatedUser) {
-          throw new Error('User not found');
+        const product = await Product.findById(id);
+        if (!product) {
+          throw new Error('Product not found');
         }
-        return updatedUser;
+    
+        product.price = newPrice;
+        const updatedProduct = await product.save();
+        return updatedProduct;
       } catch (error) {
-        throw new Error(`Failed to update username: ${error.message}`);
+        throw new Error(`Failed to update product price: ${error.message}`);
       }
-    },
+    }
   }
 };
 

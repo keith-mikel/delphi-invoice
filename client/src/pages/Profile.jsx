@@ -53,7 +53,7 @@ const Profile = () => {
         <button>Create New Invoice</button>
       </Link>
       <Link to="/update">
-        <button>Update Password</button>
+        <button>Update Product Price</button>
       </Link>
       <ul>
         {invoices.map((invoice) => (

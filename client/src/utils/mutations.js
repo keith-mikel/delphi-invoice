@@ -53,11 +53,12 @@ export const DELETE_INVOICE = gql`
   }
 `;
 
-export const UPDATE_USER_USERNAME = gql`
-  mutation UpdateUsername($id: ID!, $updatedUsername: String!) {
-    updateUsername(id: $id, updatedUsername: $updatedUsername) {
-      id
-      username
+export const UPDATE_PRODUCT_PRICE = gql`
+  mutation updateProductPrice($id: ID!, $newPrice: Float!) {
+    updateProductPrice(id: $id, newPrice: $newPrice) {
+      name
+      price
     }
   }
 `;
+

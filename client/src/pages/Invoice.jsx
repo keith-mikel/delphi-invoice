@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
+import { Link } from 'react-router-dom';
 import { GET_PRODUCTS } from '../utils/queries'; // Replace 'path-to-your-file' with the actual file path
 import { CREATE_INVOICE } from '../utils/mutations'; // Replace 'path-to-your-mutation' with the actual file path
 import auth from '../utils/auth';
+
 
 const CreateInvoiceForm = () => {
   const [invoiceDate, setInvoiceDate] = useState('');
@@ -40,6 +42,7 @@ const CreateInvoiceForm = () => {
       });
       console.log(data)
       console.log('Invoice created:', data.createInvoice);
+      alert('Invoice Created!')
       // Reset the form fields on successful submission
       setInvoiceDate('');
       setInvoiceNumber('');
@@ -55,8 +58,9 @@ const CreateInvoiceForm = () => {
   if (error) return <p>Error :(</p>;
 
   return (
-    <div>
+    <div>      
       <form onSubmit={handleFormSubmit}>
+        <h2>Create a New Invoice</h2>
         <label>
           Invoice Date:
           <input type="date" value={invoiceDate} onChange={(e) => setInvoiceDate(e.target.value)} required />
@@ -115,6 +119,9 @@ const CreateInvoiceForm = () => {
     <p>No products added yet</p>
   )}
 </div>
+<Link to="/profile">
+     <button>Return to Profile</button>
+     </Link>
     </div>
   );
 };

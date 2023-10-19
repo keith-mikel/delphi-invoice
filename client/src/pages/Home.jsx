@@ -25,7 +25,7 @@ function Home() {
   return (
     <div>
       <h1>Welcome to Delphi</h1>
-      <img src='../assets/delphi.png'></img>
+      <img src={Delphi} alt="Delphi" />
       <p>Please Click Below to See Your Invoices</p>
       <Link to="/profile">
         <button>Profile</button>
