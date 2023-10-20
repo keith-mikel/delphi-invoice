@@ -25,6 +25,7 @@
     {
       "invoiceDate": "2023-10-06",
       "invoiceNumber": "INV-2023-001",
+      "username":"user1",
       "customer": {
         "name": "Customer 1",
         "email": "customer1@example.com"
@@ -43,6 +44,7 @@
     {
       "invoiceDate": "2023-10-07",
       "invoiceNumber": "INV-2023-002",
+      "username":"user1",
       "customer": {
         "name": "Customer 2",
         "email": "customer2@example.com"
